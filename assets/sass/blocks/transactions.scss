@@ -1,0 +1,26 @@
+.transaction {
+    margin-bottom: $spacing;
+    display: flex;
+    
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.transaction__logo {
+    width: 15%;
+}
+
+.transaction__name {
+    width: 70%;
+    padding: 0 $spacing;
+}
+
+.transaction__amount {
+    width: 15%;
+    
+    color: red;
+}
+
+.transaction__amount--positive {
+    color: green;
+}

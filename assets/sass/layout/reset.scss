@@ -1,0 +1,109 @@
+a, abbr, address, article, aside, audio, b, blockquote, body, canvas, caption, cite, code, dd, del, details, dfn, dl,
+dt, em, fieldset, figcaption, figure, footer, form, header, hgroup, h1, h2, h3, h4, h5, h6, html, i, iframe, img,
+ins, kbd, label, legend, li, mark, menu, nav, object, ol, p, pre, q, samp, section, small, span, strong, sub, summary,
+sup, table, tbody, td, th, thead, time, tfoot, tr, ul, var, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+*,
+:before,
+:after {
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-text-size-adjust: none;
+}
+
+
+/**
+ * HTML 5
+ */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+abbr[title], dfn[title] {
+    border-bottom: 1px dotted #ccc;
+    cursor: help;
+}
+
+
+/**
+ * Typography
+ */
+strong, mark, b {
+    font-weight: 800; 
+    font-style: inherit;
+}
+
+em, i, cite, q, address, dfn, var {
+    font-style: italic;
+    font-weight: inherit;
+}
+
+small {
+    font-size: 0.75em;
+}
+
+
+/**
+ * Links, Images & Embedded content
+ */
+img {
+    width: 100%;
+    height: auto;
+}
+
+:focus {
+    outline: 0;
+}
+
+
+/**
+ * Forms
+ */
+input {
+    line-height: 1em;
+}
+
+input, select {
+    vertical-align: middle;
+}
+
+input, textarea, select {
+    margin: 0;
+}
+
+
+/* ----- Tables ----- */
+table, th, td {
+    border-collapse: collapse;
+    border-spacing: 0;
+    vertical-align: top;
+    text-align: left;
+    font-weight: normal;
+}
+
+
+/**
+ * Cursors
+ */
+a, button, select {
+    cursor: pointer;
+}
+
+input, textarea {
+    cursor: text;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    cursor: pointer;
+}

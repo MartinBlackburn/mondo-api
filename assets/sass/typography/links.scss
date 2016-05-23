@@ -1,0 +1,20 @@
+a {
+    text-decoration: none;
+    color: $blue;
+    
+    transition: all 0.1s ease-in;
+}
+
+a:hover {
+    color: $blue;
+    text-decoration: underline;
+}
+
+h1 a, .h1 a, 
+h2 a, .h2 a, 
+h3 a, .h3 a, 
+h4 a, .h4 a, 
+h5 a, .h5 a, 
+h6 a, .h6 a {
+    color: inherit;
+}

@@ -1,0 +1,39 @@
+.balance {
+    margin-bottom: $spacing;
+    display: flex;
+    
+    flex-wrap: nowrap;
+    align-items: center;
+    
+    background: $greyLight;
+    
+    text-align: center;
+}
+
+.balance__amount {
+    width: 50%;
+    padding: $spacing*1.5 $spacing/2 $spacing/2 $spacing/2;
+    
+    font-size: 25px;
+    line-height: 1;
+    
+    position: relative;
+}
+
+.balance__amount:before {
+    content: 'Balance';
+    
+    width: 100%;
+    padding-top: $spacing/2;
+    
+    font-size: 14px;
+    line-height: 1;
+    
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.balance__amount--spent:before {
+    content: 'Spent today';
+}
