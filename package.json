@@ -1,0 +1,13 @@
+{
+  "name": "Mondo",
+  "version": "0.0.1",
+  "private": true,
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-cli": "0.1.13",
+    "grunt-contrib-cssmin": "~0.14.0",
+    "grunt-contrib-sass": "~0.9.2",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-autoprefixer": "3.0.3"
+  }
+}
