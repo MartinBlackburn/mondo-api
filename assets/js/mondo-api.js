@@ -12,8 +12,8 @@ App.MondoAPI = (function()
     
     // auth variables
     var stateToken = App.Cookies.readCookie("stateToken");
-    var mondoStateToken = getURLParameter('state');
-    var authCode = getURLParameter('code');
+    var mondoStateToken = App.Helpers.getURLParameter('state');
+    var authCode = App.Helpers.getURLParameter('code');
     var accessToken = App.Cookies.readCookie("accessToken");
     
     // account variables
@@ -66,7 +66,7 @@ App.MondoAPI = (function()
      */
     function refreshEverything()
     {
-        debugMessage("Refreshing all data");
+        App.Helpers.debugMessage("Refreshing all data");
         
         loginButton.remove();
         
@@ -83,7 +83,7 @@ App.MondoAPI = (function()
      */
     function addLoginButton()
     {
-        debugMessage("Adding login button");
+        App.Helpers.debugMessage("Adding login button");
         
         var url = "https://auth.getmondo.co.uk/?client_id=" + clientId + "&redirect_uri=" + redirectUri + "&response_type=code&state=" + stateToken;
         
@@ -99,7 +99,7 @@ App.MondoAPI = (function()
      */
     function setStateToken()
     {
-        debugMessage("Setting state token");
+        App.Helpers.debugMessage("Setting state token");
         
         // generate random token
         stateToken = 'id-' + Math.random().toString(36).substr(2, 16);
@@ -117,7 +117,7 @@ App.MondoAPI = (function()
      */
     function getAccessToken()
     {
-        debugMessage("Getting access token");
+        App.Helpers.debugMessage("Getting access token");
         
         var url = "https://api.getmondo.co.uk/oauth2/token";
         var data = {
@@ -137,8 +137,8 @@ App.MondoAPI = (function()
      */
     function setAccessToken(data)
     {
-        debugMessage("Setting access token");
-        debugMessage(data);
+        App.Helpers.debugMessage("Setting access token");
+        App.Helpers.debugMessage(data);
         
         accessToken = data.access_token;
         userId = data.user_id;
@@ -157,7 +157,7 @@ App.MondoAPI = (function()
      */
     function getAccount()
     {
-        debugMessage("Getting account");
+        App.Helpers.debugMessage("Getting account");
         
         var url = "https://api.getmondo.co.uk/accounts";
         
@@ -172,8 +172,8 @@ App.MondoAPI = (function()
      */
     function setAccount(data)
     {
-        debugMessage("Setting account");
-        debugMessage(data);
+        App.Helpers.debugMessage("Setting account");
+        App.Helpers.debugMessage(data);
         
         accountId = data.accounts[0].id;
         
@@ -189,7 +189,7 @@ App.MondoAPI = (function()
      */
     function getBalance()
     {
-        debugMessage("Getting balance");
+        App.Helpers.debugMessage("Getting balance");
         
         var url = "https://api.getmondo.co.uk/balance";
         var data = {
@@ -204,11 +204,11 @@ App.MondoAPI = (function()
      */
     function setBalance(data)
     {
-        debugMessage("Setting balance");
-        debugMessage(data);
+        App.Helpers.debugMessage("Setting balance");
+        App.Helpers.debugMessage(data);
         
-        currentBalanceContainer.text(formatCurrency(data.balance, data.currency));
-        spentContainer.text(formatCurrency(data.spend_today, data.currency));
+        currentBalanceContainer.text(App.Helpers.formatCurrency(data.balance, data.currency));
+        spentContainer.text(App.Helpers.formatCurrency(data.spend_today, data.currency));
     }
     
     
@@ -220,7 +220,7 @@ App.MondoAPI = (function()
      */
     function getTransactions()
     {
-        debugMessage("Getting transactions");
+        App.Helpers.debugMessage("Getting transactions");
         
         var url = "https://api.getmondo.co.uk/transactions";
         var data = {
@@ -238,8 +238,8 @@ App.MondoAPI = (function()
      */
     function setTransactions(data)
     {
-        debugMessage("Setting transactions");
-        debugMessage(data);
+        App.Helpers.debugMessage("Setting transactions");
+        App.Helpers.debugMessage(data);
         
         // clear old transactions first
         transactionsContainer.empty();
@@ -321,7 +321,7 @@ App.MondoAPI = (function()
                         "<div class='transaction__name'>" + transactionName + "</div>",
                         statusTemplate,
                     "</div>",
-                    "<div class='" + transactionAmountClasses + "'>" + formatCurrency(transaction.amount, transaction.currency, true) + "</div>",
+                    "<div class='" + transactionAmountClasses + "'>" + App.Helpers.formatCurrency(transaction.amount, transaction.currency, true) + "</div>",
                 "</div>"
             ].join("\n");
             
@@ -340,7 +340,7 @@ App.MondoAPI = (function()
                 "<div class='infoWindow'>",
                     "<div class='infoWindow__name'>" + transactionName + "</div>",
                     "<div class='infoWindow__date'>" + transactionFormattedDate + " at " + transactionFormattedTime + "</div>",
-                    "<div class='infoWindow__amount'>" + formatCurrency(transaction.amount, transaction.currency, true) + "</div>",
+                    "<div class='infoWindow__amount'>" + App.Helpers.formatCurrency(transaction.amount, transaction.currency, true) + "</div>",
                 "</div>"
             ].join("\n");
             
@@ -387,7 +387,7 @@ App.MondoAPI = (function()
             cache: false,
             async: false,
             success: callback,
-            error: loadingError
+            error: requestError
         };
         
         if(url == 'https://api.getmondo.co.uk/oauth2/token') {
@@ -402,13 +402,13 @@ App.MondoAPI = (function()
             request.headers = {'Authorization': 'Bearer ' + accessToken};
         }
         
-        debugMessage("----------");
-        debugMessage("Making request");
-        debugMessage("URL: " + request.url);
-        debugMessage("Method: " + request.method);
-        debugMessage("Data: ");
-        debugMessage(request.data);
-        debugMessage("----------");
+        App.Helpers.debugMessage("----------");
+        App.Helpers.debugMessage("Making request");
+        App.Helpers.debugMessage("URL: " + request.url);
+        App.Helpers.debugMessage("Method: " + request.method);
+        App.Helpers.debugMessage("Data: ");
+        App.Helpers.debugMessage(request.data);
+        App.Helpers.debugMessage("----------");
 
         $.ajax(request);
     }
@@ -420,7 +420,7 @@ App.MondoAPI = (function()
     /**
      * Error when unable to load items
      */
-    function loadingError(xhr, errorType, exception)
+    function requestError(xhr, errorType, exception)
     {
         // log error
         console.error("Error");
@@ -431,57 +431,6 @@ App.MondoAPI = (function()
     
     
     
-    
-    
-    /**
-     * Get a paramater from the URL
-     * http://stackoverflow.com/questions/11582512/how-to-get-url-parameters-with-javascript/
-     */
-    function getURLParameter(name)
-    {
-        var param = decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20')) || null;
-        
-        debugMessage("URL param '" + name + "': " + param);
-        
-        return param;
-    }
-    
-    
-    
-    
-    
-    /**
-     * Show debug messages
-     */
-    function formatCurrency(amount, currencyCode, makePositive)
-    {
-        var currencySymbol = [];
-        currencySymbol['GBP'] = "£";
-        currencySymbol['USD'] = "$";
-        currencySymbol['EUR'] = "€";
-        
-        if(amount < 0 && makePositive) {
-            amount = amount * -1;
-        }
-        
-        var amount = amount / 100;        
-        
-        return currencySymbol[currencyCode] + amount.toFixed(2);
-    }
-    
-    
-    
-    
-    
-    /**
-     * Show debug messages
-     */
-    function debugMessage(message)
-    {
-        if(showDebugMessages) {
-            console.log(message);
-        }
-    }
     
     
     /**
