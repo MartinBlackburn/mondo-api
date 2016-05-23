@@ -254,10 +254,19 @@ App.MondoAPI = (function()
         
         // add new transactions
         $.each(data.transactions, function(key, transaction) {
+            var isDeclined = false;
+            var status = '';
+            
             // transaction amount classes
             var transactionAmountClasses = "transaction__amount";
             if(transaction.amount > 0) {
                 transactionAmountClasses += " transaction__amount--positive";
+            }
+            
+            if(transaction.decline_reason) {
+                isDeclined = true;
+                transactionAmountClasses += " transaction__amount--declined";
+                status = "Declined";
             }
             
             // get merchant icon
@@ -267,9 +276,13 @@ App.MondoAPI = (function()
             }
             
             // get transaction name
-            var transactionName = 'Mondo top-up';
+            var transactionName = 'Mondo';
             if(transaction.merchant) {
                 transactionName = transaction.merchant.name;
+            }
+            
+            if(transactionName == "Mondo") {
+                status = "Top-up";
             }
             
             // format transaction date
@@ -294,11 +307,20 @@ App.MondoAPI = (function()
             // heading template
             var headingTemplate = "<h2 class='h4 sidebar__heading'>" + transactionFormattedDay + " " + transactionFormattedDate + "</h2>";
             
+            // status template
+            var statusTemplate = '';
+            if(status) {
+                statusTemplate = "<div class='transaction__status'>" + status + "</div>";
+            }
+            
             // transaction template
             var transactionTemplate = [
                 "<div class='transaction category-" + transaction.category + "'>",
                     merchantLogo,
-                    "<div class='transaction__name'>" + transactionName + "</div>",
+                    "<div class='transaction__info'>",
+                        "<div class='transaction__name'>" + transactionName + "</div>",
+                        statusTemplate,
+                    "</div>",
                     "<div class='" + transactionAmountClasses + "'>" + formatCurrency(transaction.amount, transaction.currency, true) + "</div>",
                 "</div>"
             ].join("\n");
@@ -323,16 +345,29 @@ App.MondoAPI = (function()
             ].join("\n");
             
             // add transaction to the map
+            var lat = 0;
+            var lng = 0;
+            
             if(transaction.merchant && transaction.merchant.address.latitude) {
-                var payload = {
-                    lat: transaction.merchant.address.latitude,
-                    lng: transaction.merchant.address.longitude,
-                    title: transactionName,
-                    info: infoWindowTemplate,
-                    timeout: key * 200
-                }
-                App.Map.addMarker(payload);
+                lat = transaction.merchant.address.latitude;
+                lng = transaction.merchant.address.longitude;
             }
+            
+            var showOnMap = true;
+            
+            if(lat === 0 || lng === 0) {
+                showOnMap = false;
+            }
+            
+            var payload = {
+                lat: lat,
+                lng: lng,
+                title: transactionName,
+                info: infoWindowTemplate,
+                timeout: key * 100,
+                showOnMap: showOnMap
+            }
+            App.Map.addMarker(payload);
         });
     }
     

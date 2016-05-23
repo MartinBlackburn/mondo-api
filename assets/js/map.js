@@ -44,7 +44,8 @@ App.Map = (function()
      * 		lng: float
      * 		title: string
      * 		info: html string
-     * 		timeout: int
+     * 		timeout: int,
+     * 		showOnMap: boolean 		
      * }
      */
     function addMarker(payload)
@@ -52,18 +53,25 @@ App.Map = (function()
         // create location object
         var location = new google.maps.LatLng({lat: payload.lat, lng: payload.lng}); 
         
-        // extand map bouns to include marker
-        bounds.extend(location);
+        // hide marker unless asked for
+        var mapRef = null;
         
-        // fit map to bounds
-        map.fitBounds(bounds);
+        if(payload.showOnMap) {
+            mapRef = map;
+            
+            // extand map bouns to include marker
+            bounds.extend(location);
+            
+            // fit map to bounds
+            map.fitBounds(bounds);
+        }
         
         // set timout to drop markers at differnt points
         window.setTimeout(function() {
             // create maker
             var marker = new google.maps.Marker({
                 position: location,
-                map: map,
+                map: mapRef,
                 animation: google.maps.Animation.DROP,
                 title: payload.title
             });
