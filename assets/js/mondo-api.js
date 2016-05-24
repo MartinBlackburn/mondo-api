@@ -380,7 +380,7 @@ App.MondoAPI = (function()
         if(transaction.decline_reason) {
             var reason = transaction.decline_reason;
             reason = reason.toLowerCase();
-            reason = reason.repalce("_", " ");
+            reason = reason.replace("_", " ");
             
             status = "Declined: " + reason;
         }
