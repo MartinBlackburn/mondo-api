@@ -266,7 +266,7 @@ App.MondoAPI = (function()
             if(transaction.decline_reason) {
                 isDeclined = true;
                 transactionAmountClasses += " transaction__amount--declined";
-                status = "Declined";
+                status = "Declined: " + transaction.decline_reason;
             }
             
             // get merchant icon
