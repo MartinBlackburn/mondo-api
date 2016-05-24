@@ -305,13 +305,10 @@ App.MondoAPI = (function()
             var transactionFormattedTime = hours + ":" + minutes;
             
             // heading template
-            var headingTemplate = "<h2 class='h4 sidebar__heading'>" + transactionFormattedDay + " " + transactionFormattedDate + "</h2>";
+            var headingTemplate = App.Templates.heading(transactionFormattedDay + " " + transactionFormattedDate);
             
             // status template
-            var statusTemplate = '';
-            if(status) {
-                statusTemplate = "<div class='transaction__status'>" + status + "</div>";
-            }
+            var statusTemplate = App.Templates.transactionStatus(status);
             
             // transaction template
             var transactionTemplate = [
