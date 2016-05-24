@@ -254,8 +254,14 @@ App.MondoAPI = (function()
         
         // add new transactions
         $.each(data.transactions, function(key, transaction) {
-            // format transaction date
+            // format transaction details
             var transactionDate = App.Helpers.formatDateFromString(transaction.created);
+            var transactionAmount = App.Helpers.formatCurrency(transaction.amount, transaction.currency, true);
+            var transactionStatus = getTransactionStatus(transaction);
+            var transactionName = 'Mondo';
+            if(transaction.merchant) {
+                transactionName = transaction.merchant.name;
+            }
             
             // heading template
             var headingTemplate = App.Templates.sidebarHeading(transactionDate.dayName + " " + transactionDate.stringLong);
@@ -267,35 +273,14 @@ App.MondoAPI = (function()
                 lastHeading = headingTemplate;
             }
             
-            // transaction declined
-            var isDeclined = false;            
-            if(transaction.decline_reason) {
-                isDeclined = true;
-            }
-            
-            // get transaction name
-            var transactionName = 'Mondo';
-            if(transaction.merchant) {
-                transactionName = transaction.merchant.name;
-            }
-            
-            // status
-            var status = getTransactionStatus(transaction);
-            
             // transaction template
-            var transactionTemplate = App.Templates.transation(transaction, transactionName, status);
+            var transactionTemplate = App.Templates.transation(transaction, transactionName, transactionStatus, transactionAmount);
             
             // append transaction
             transactionsContainer.append(transactionTemplate);
             
             // build info window for the map
-            var infoWindowTemplate = [
-                "<div class='infoWindow'>",
-                    "<div class='infoWindow__name'>" + transactionName + "</div>",
-                    "<div class='infoWindow__date'>" + transactionDate.stringWithTime + "</div>",
-                    "<div class='infoWindow__amount'>" + App.Helpers.formatCurrency(transaction.amount, transaction.currency, true) + "</div>",
-                "</div>"
-            ].join("\n");
+            var infoWindowTemplate = App.Templates.infoWindow(transactionName, transactionDate.stringWithTime, transactionAmount);
             
             // add transaction to the map
             var lat = 0;

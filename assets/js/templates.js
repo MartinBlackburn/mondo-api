@@ -60,8 +60,11 @@ App.Templates = (function()
      * Return a transaction template
      *
      * @param object transaction
+     * @param string transactionName
+     * @param string status
+     * @param string amount
      */
-    function transation(transaction, transactionName, status)
+    function transation(transaction, transactionName, status, amount)
     {
         // transation amount classes
         var transactionAmountClasses = "transaction__amount";
@@ -84,11 +87,34 @@ App.Templates = (function()
                     "<div class='transaction__name'>" + transactionName + "</div>",
                     transactionStatus(status),
                 "</div>",
-                "<div class='" + transactionAmountClasses + "'>" + App.Helpers.formatCurrency(transaction.amount, transaction.currency, true) + "</div>",
+                "<div class='" + transactionAmountClasses + "'>" + amount + "</div>",
             "</div>"
         ].join("\n");
         
         return transactionTemplate;
+    }
+    
+    
+    
+    
+    /**
+     * Return a merchant logo template
+     *
+     * @param string name
+     * @param string date
+     * @param string amount
+     */
+    function infoWindow(name, date, amount)
+    {        
+        var infoWindowTemplate = [
+            "<div class='infoWindow'>",
+                "<div class='infoWindow__name'>" + name + "</div>",
+                "<div class='infoWindow__date'>" + date + "</div>",
+                "<div class='infoWindow__amount'>" + amount + "</div>",
+            "</div>"
+        ].join("\n");
+        
+        return infoWindowTemplate;
     }
     
     
@@ -102,6 +128,7 @@ App.Templates = (function()
         transactionStatus: transactionStatus,
         sidebarHeading: sidebarHeading,
         merchantLogo: merchantLogo,
-        transation: transation
+        transation: transation,
+        infoWindow: infoWindow
     };
 })();
