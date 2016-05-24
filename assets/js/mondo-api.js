@@ -283,7 +283,7 @@ App.MondoAPI = (function()
             var status = getTransactionStatus(transaction);
             
             // transaction template
-            var transactionTemplate = App.Templates.transation(transaction, transationName, status);
+            var transactionTemplate = App.Templates.transation(transaction, transactionName, status);
             
             // append transaction
             transactionsContainer.append(transactionTemplate);
