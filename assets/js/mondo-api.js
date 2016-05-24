@@ -269,8 +269,8 @@ App.MondoAPI = (function()
                 status = "Declined: " + transaction.decline_reason;
             }
             
-            // get merchant logo
-            var merchantLogo = App.Templates.merchantLogo(transaction.merchant.logo || null);
+            // get merchant logo template
+            var merchantLogo = App.Templates.merchantLogo(transaction);
             
             // get transaction name
             var transactionName = 'Mondo';

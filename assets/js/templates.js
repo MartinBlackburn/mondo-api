@@ -39,14 +39,14 @@ App.Templates = (function()
     /**
      * Return a merchant logo template
      *
-     * @param string heading
+     * @param object transaction
      */
-    function merchantLogo(logoPath)
-    {
+    function merchantLogo(transaction)
+    {        
         var merchantLogoTemplate = "<div class='transaction__logo'></div>";
         
-        if(logoPath) {
-            merchantLogo = "<div class='transaction__logo'><img src='" + logoPath + "' /></div>";
+        if(transaction.merchant && transaction.merchant.logo) {
+            merchantLogoTemplate = "<div class='transaction__logo'><img src='" + transaction.merchant.logo + "' /></div>";
         }
         
         return merchantLogoTemplate;
