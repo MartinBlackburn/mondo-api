@@ -1,10 +1,7 @@
 var App = App || {};
 
 App.MondoAPI = (function()
-{
-    // App settings
-    var showDebugMessages = true;
-    
+{    
     // client variables
     var clientId = App.Cookies.readCookie("clientId");
     var clientSecret = App.Cookies.readCookie("clientSecret");
