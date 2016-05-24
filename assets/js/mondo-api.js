@@ -267,17 +267,10 @@ App.MondoAPI = (function()
                 lastHeading = headingTemplate;
             }
             
-            // transaction amount classes
-            var transactionAmountClasses = "transaction__amount";
-            if(transaction.amount > 0) {
-                transactionAmountClasses += " transaction__amount--positive";
-            }
-            
-            var isDeclined = false;
-            
+            // transaction declined
+            var isDeclined = false;            
             if(transaction.decline_reason) {
                 isDeclined = true;
-                transactionAmountClasses += " transaction__amount--declined";
             }
             
             // get transaction name
@@ -286,24 +279,11 @@ App.MondoAPI = (function()
                 transactionName = transaction.merchant.name;
             }
             
-            // get merchant logo template
-            var merchantLogo = App.Templates.merchantLogo(transaction);
-            
-            // status template
+            // status
             var status = getTransactionStatus(transaction);
-            var statusTemplate = App.Templates.transactionStatus(status);
             
             // transaction template
-            var transactionTemplate = [
-                "<div class='transaction category-" + transaction.category + "'>",
-                    merchantLogo,
-                    "<div class='transaction__info'>",
-                        "<div class='transaction__name'>" + transactionName + "</div>",
-                        statusTemplate,
-                    "</div>",
-                    "<div class='" + transactionAmountClasses + "'>" + App.Helpers.formatCurrency(transaction.amount, transaction.currency, true) + "</div>",
-                "</div>"
-            ].join("\n");
+            var transactionTemplate = App.Templates.transation(transaction, transationName, status);
             
             // append transaction
             transactionsContainer.append(transactionTemplate);

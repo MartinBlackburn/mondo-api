@@ -57,11 +57,47 @@ App.Templates = (function()
 
     
     /**
+     * Return a transaction template
+     *
+     * @param object transaction
+     */
+    function transation(transaction, transationName, status)
+    {
+        // transation amount classes
+        var transactionAmountClasses = "transaction__amount";
+        if(transaction.amount > 0) {
+            transactionAmountClasses += " transaction__amount--positive";
+        }
+        
+        if(transaction.decline_reason) {
+            transactionAmountClasses += " transaction__amount--declined";
+        }
+        
+        var transactionTemplate = [
+            "<div class='transaction category-" + transaction.category + "'>",
+                merchantLogo(transaction),
+                "<div class='transaction__info'>",
+                    "<div class='transaction__name'>" + transactionName + "</div>",
+                    transactionStatus(status),
+                "</div>",
+                "<div class='" + transactionAmountClasses + "'>" + App.Helpers.formatCurrency(transaction.amount, transaction.currency, true) + "</div>",
+            "</div>"
+        ].join("\n");
+        
+        return transactionTemplate;
+    }
+    
+    
+    
+    
+    
+    /**
      * Functions available to the public
      */
     return {
         transactionStatus: transactionStatus,
         sidebarHeading: sidebarHeading,
-        merchantLogo: merchantLogo
+        merchantLogo: merchantLogo,
+        transation: transation
     };
 })();
