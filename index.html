@@ -21,7 +21,16 @@
         <div class="map js-map"></div>
         
         <div class="sidebar">
-            <a class="button js-loginButton" href="">Login</a>
+            <div class="loginDisplay js-loginDisplay">
+                <h1>Mondo Dashboard</h1>
+                <p>You will need to create yourself a client in the <a href="https://developers.getmondo.co.uk/">Mondo developer tools</a> 
+                    to use this app.</p>
+                
+                <input class="js-clientId" type="text" placeholder="Client ID"/>
+                <input class="js-clientSecret" type="text" placeholder="Client secret" />
+                
+                <a class="button js-loginButton" href="">Login</a>
+            </div>
             
             <div class="balance js-balance">
                 <div class="balance__amount balance__amount--current js-currentBalance"></div>

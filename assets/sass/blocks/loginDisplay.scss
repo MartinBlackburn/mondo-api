@@ -1,0 +1,12 @@
+.loginDisplay {
+    margin-bottom: $spacing;
+}
+
+.loginDisplay input {
+    width: 100%;
+    display: block;
+    padding: 5px;
+    margin-bottom: $spacing/2;
+    
+    font-size: 1em;
+}

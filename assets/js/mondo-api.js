@@ -6,8 +6,8 @@ App.MondoAPI = (function()
     var showDebugMessages = true;
     
     // client variables
-    var clientId = 'oauthclient_000097OK5VuXaYsd2w86Ov';
-    var clientSecret = 'm3G7BUl5bll9CJMduCVBf4HWzmVfyBXOoNGaSDOzCKrK8cPthAA0Ri9aZlQwoK+7kk+Wh2odb6qSixDOic9U';
+    var clientId = App.Cookies.readCookie("clientId");
+    var clientSecret = App.Cookies.readCookie("clientSecret");
     var redirectUri = 'http://martinblackburn.github.io/mondo-api/';
     
     // auth variables
@@ -22,10 +22,13 @@ App.MondoAPI = (function()
 
     // display containers
     var transactionsContainer = $(".js-transactions");
-    var balanceContainer = $(".js-balance");
+    var balanceContainer = $(".js-balance").hide();
     var currentBalanceContainer = $(".js-currentBalance");
     var spentContainer = $(".js-spent");
+    var loginDisplay = $(".js-loginDisplay");
     var loginButton = $(".js-loginButton");
+    var clientIdDisplay = $(".js-clientId");
+    var clientSecretDisplay = $(".js-clientSecret");
 
 
 
@@ -35,8 +38,8 @@ App.MondoAPI = (function()
      */
     function init()
     {        
-        // add login button
-        addLoginButton();
+        // add login stuff
+        addLoginDisplay();
         
         // set a stateToken if needed
         if(!stateToken) {
@@ -68,7 +71,9 @@ App.MondoAPI = (function()
     {
         App.Helpers.debugMessage("Refreshing all data");
         
-        loginButton.remove();
+        loginDisplay.remove();
+        
+        balanceContainer.show();
         
         getAccount();
         getBalance();
@@ -81,13 +86,33 @@ App.MondoAPI = (function()
     /**
      * Add a button to login
      */
-    function addLoginButton()
+    function addLoginDisplay()
     {
-        App.Helpers.debugMessage("Adding login button");
+        App.Helpers.debugMessage("Adding login display");
+        
+        if(clientId) {
+            clientIdDisplay.val(clientId);
+        }
+        
+        if(clientSecret) {
+            clientSecretDisplay.val(clientSecret);
+        }
         
         var url = "https://auth.getmondo.co.uk/?client_id=" + clientId + "&redirect_uri=" + redirectUri + "&response_type=code&state=" + stateToken;
         
-        loginButton.attr("href", url);
+        loginButton.on("click", function(event) {
+            event.preventDefault();
+            
+            // set client id and secret
+            clientId = clientIdDisplay.val();
+            clientSecret = clientSecretDisplay.val();
+            App.Cookies.setCookie("clientId", clientId, 525600);
+            App.Cookies.setCookie("clientSecret", clientSecret, 525600);
+            
+            if(clientId && clientSecret) {
+                window.location.href = url;
+            }
+        });
     }
     
     

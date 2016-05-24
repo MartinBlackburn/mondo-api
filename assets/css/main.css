@@ -154,7 +154,6 @@ p:last-child {
   border-radius: 3px;
   display: inline-block;
   vertical-align: middle;
-  margin-bottom: 20px;
   background: #3277D1;
   color: #ffffff;
   font-family: inherit;
@@ -169,6 +168,16 @@ p:last-child {
   color: #ffffff;
   text-decoration: none;
   background: #4d4c4b; }
+
+.loginDisplay {
+  margin-bottom: 20px; }
+
+.loginDisplay input {
+  width: 100%;
+  display: block;
+  padding: 5px;
+  margin-bottom: 10px;
+  font-size: 1em; }
 
 .sidebar {
   width: 25%;
