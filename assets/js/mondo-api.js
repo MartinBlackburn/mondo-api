@@ -382,7 +382,7 @@ App.MondoAPI = (function()
             reason = reason.toLowerCase();
             reason = reason.repalce("_", " ");
             
-            status = "Declined: " + ;
+            status = "Declined: " + reason;
         }
         
         return status;
