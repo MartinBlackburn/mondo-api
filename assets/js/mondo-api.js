@@ -98,8 +98,6 @@ App.MondoAPI = (function()
             clientSecretDisplay.val(clientSecret);
         }
         
-        var url = "https://auth.getmondo.co.uk/?client_id=" + clientId + "&redirect_uri=" + redirectUri + "&response_type=code&state=" + stateToken;
-        
         loginButton.on("click", function(event) {
             event.preventDefault();
             
@@ -108,6 +106,8 @@ App.MondoAPI = (function()
             clientSecret = clientSecretDisplay.val();
             App.Cookies.setCookie("clientId", clientId, 525600);
             App.Cookies.setCookie("clientSecret", clientSecret, 525600);
+            
+            var url = "https://auth.getmondo.co.uk/?client_id=" + clientId + "&redirect_uri=" + redirectUri + "&response_type=code&state=" + stateToken;
             
             if(clientId && clientSecret) {
                 window.location.href = url;
