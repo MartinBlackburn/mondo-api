@@ -41,7 +41,7 @@ App.Helpers = (function()
     
     
     /**
-     * Show format currency
+     * Format currency
      */
     function formatCurrency(amount, currencyCode, makePositive)
     {
@@ -58,6 +58,50 @@ App.Helpers = (function()
         
         return currencySymbol[currencyCode] + amount.toFixed(2);
     }
+    
+    
+    
+    
+    
+    /**
+     * Format date
+     */
+    function formatDateFromString(inputDate)
+    {
+        // date object to return
+        var dateObject = {};
+        
+        // day and month names
+        var dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        
+        var date = new Date(inputDate);
+        
+        // add leading 0 to hours
+        var hours = date.getHours();
+        if(hours < 10) {
+            hours = "0" + hours;
+        }
+        
+        // add leading 0 to minutes
+        var minutes = date.getMinutes();
+        if(minutes < 10) {
+            minutes = "0" + minutes;
+        }
+        
+        // create custom date object
+        dateObject.time = hours + ":" + minutes;        
+        dateObject.dayName = dayNames[date.getDay()];
+        dateObject.day = date.getDate();
+        dateObject.monthName = monthNames[date.getMonth()];
+        dateObject.month = date.getMonth() + 1;
+        dateObject.year = date.getFullYear();
+        dateObject.stringShort = dateObject.day + "/" + dateObject.month + "/" + dateObject.year;
+        dateObject.stringLong = dateObject.day + " " + dateObject.monthName + " " + dateObject.year;
+        dateObject.stringWithTime = dateObject.day + " " + dateObject.monthName + " " + dateObject.year + " at " dateObject.time;
+        
+        return dateObject;
+    }
 
 
 
@@ -69,6 +113,7 @@ App.Helpers = (function()
     return {
         debugMessage: debugMessage,
         getURLParameter: getURLParameter,
-        formatCurrency: formatCurrency
+        formatCurrency: formatCurrency,
+        formatDateFromString: formatDateFromString
     };
 })();

@@ -277,26 +277,10 @@ App.MondoAPI = (function()
             }
             
             // format transaction date
-            var transactionDate = new Date(transaction.created);
-            
-            var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-            var dayName = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-            var hours = transactionDate.getHours();
-            if(hours < 10) {
-                hours = "0" + hours;
-            }
-            
-            var minutes = transactionDate.getMinutes();
-            if(minutes < 10) {
-                minutes = "0" + minutes;
-            }
-            
-            var transactionFormattedDay = dayName[transactionDate.getDay()];
-            var transactionFormattedDate = transactionDate.getDate() + " " + monthNames[transactionDate.getMonth()] + " " + transactionDate.getFullYear();
-            var transactionFormattedTime = hours + ":" + minutes;
+            var transactionDate = App.Helpers.formatDateFromString(transaction.created);
             
             // heading template
-            var headingTemplate = App.Templates.sidebarHeading(transactionFormattedDay + " " + transactionFormattedDate);
+            var headingTemplate = App.Templates.sidebarHeading(transactionDate.dayName + " " + transactionDate.stringLong);
             
             // status template
             var status = getTransactionStatus(transaction);
@@ -328,7 +312,7 @@ App.MondoAPI = (function()
             var infoWindowTemplate = [
                 "<div class='infoWindow'>",
                     "<div class='infoWindow__name'>" + transactionName + "</div>",
-                    "<div class='infoWindow__date'>" + transactionFormattedDate + " at " + transactionFormattedTime + "</div>",
+                    "<div class='infoWindow__date'>" + transactionDate.stringWithTime + "</div>",
                     "<div class='infoWindow__amount'>" + App.Helpers.formatCurrency(transaction.amount, transaction.currency, true) + "</div>",
                 "</div>"
             ].join("\n");
