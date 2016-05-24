@@ -69,12 +69,16 @@ App.Templates = (function()
             transactionAmountClasses += " transaction__amount--positive";
         }
         
+        // transaction classes
+        var transactionClasses = "transaction";
         if(transaction.decline_reason) {
-            transactionAmountClasses += " transaction__amount--declined";
+            transactionClasses += " transaction--declined";
         }
         
+        transactionClasses += " category-" + transaction.category;
+        
         var transactionTemplate = [
-            "<div class='transaction category-" + transaction.category + "'>",
+            "<div class='" + transactionClasses + "'>",
                 merchantLogo(transaction),
                 "<div class='transaction__info'>",
                     "<div class='transaction__name'>" + transactionName + "</div>",
