@@ -269,11 +269,8 @@ App.MondoAPI = (function()
                 status = "Declined: " + transaction.decline_reason;
             }
             
-            // get merchant icon
-            var merchantLogo = "<div class='transaction__logo'></div>";
-            if(transaction.merchant && transaction.merchant.logo) {
-                merchantLogo = "<div class='transaction__logo'><img src='" + transaction.merchant.logo + "' /></div>";
-            }
+            // get merchant logo
+            var merchantLogo = App.Templates.merchantLogo(transaction.merchant.logo);
             
             // get transaction name
             var transactionName = 'Mondo';
@@ -305,7 +302,7 @@ App.MondoAPI = (function()
             var transactionFormattedTime = hours + ":" + minutes;
             
             // heading template
-            var headingTemplate = App.Templates.heading(transactionFormattedDay + " " + transactionFormattedDate);
+            var headingTemplate = App.Templates.sidebarHeading(transactionFormattedDay + " " + transactionFormattedDate);
             
             // status template
             var statusTemplate = App.Templates.transactionStatus(status);

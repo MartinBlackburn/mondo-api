@@ -23,13 +23,33 @@ App.Templates = (function()
     
     
     /**
-     * Return a heading template
+     * Return a sidebar heading template
      *
      * @param string heading
      */
-    function heading(heading)
+    function sidebarHeading(heading)
     {
         return "<h2 class='h4 sidebar__heading'>" + heading + "</h2>";
+    }
+    
+    
+    
+    
+    
+    /**
+     * Return a merchant logo template
+     *
+     * @param string heading
+     */
+    function merchantLogo(logoPath)
+    {
+        var merchantLogoTemplate = "<div class='transaction__logo'></div>";
+        
+        if(logoPath) {
+            merchantLogo = "<div class='transaction__logo'><img src='" + logoPath + "' /></div>";
+        }
+        
+        return merchantLogoTemplate;
     }
 
     
@@ -41,6 +61,7 @@ App.Templates = (function()
      */
     return {
         transactionStatus: transactionStatus,
-        heading: heading
+        sidebarHeading: sidebarHeading,
+        merchantLogo: merchantLogo
     };
 })();
