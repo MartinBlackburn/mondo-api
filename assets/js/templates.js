@@ -61,7 +61,7 @@ App.Templates = (function()
      *
      * @param object transaction
      */
-    function transation(transaction, transationName, status)
+    function transation(transaction, transactionName, status)
     {
         // transation amount classes
         var transactionAmountClasses = "transaction__amount";
