@@ -8,7 +8,7 @@ App.MondoAPI = (function()
     // client variables
     var clientId = 'oauthclient_000097OK5VuXaYsd2w86Ov';
     var clientSecret = 'm3G7BUl5bll9CJMduCVBf4HWzmVfyBXOoNGaSDOzCKrK8cPthAA0Ri9aZlQwoK+7kk+Wh2odb6qSixDOic9U';
-    var redirectUri = 'https://dl.dropboxusercontent.com/u/18441802/Mondo-API/index.html';
+    var redirectUri = 'http://martinblackburn.github.io/mondo-api/';
     
     // auth variables
     var stateToken = App.Cookies.readCookie("stateToken");
