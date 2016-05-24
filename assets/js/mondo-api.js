@@ -255,7 +255,6 @@ App.MondoAPI = (function()
         // add new transactions
         $.each(data.transactions, function(key, transaction) {
             var isDeclined = false;
-            var status = '';
             
             // transaction amount classes
             var transactionAmountClasses = "transaction__amount";
@@ -266,7 +265,6 @@ App.MondoAPI = (function()
             if(transaction.decline_reason) {
                 isDeclined = true;
                 transactionAmountClasses += " transaction__amount--declined";
-                status = "Declined: " + transaction.decline_reason;
             }
             
             // get merchant logo template
@@ -276,10 +274,6 @@ App.MondoAPI = (function()
             var transactionName = 'Mondo';
             if(transaction.merchant) {
                 transactionName = transaction.merchant.name;
-            }
-            
-            if(transactionName == "Mondo") {
-                status = "Top-up";
             }
             
             // format transaction date
@@ -305,6 +299,7 @@ App.MondoAPI = (function()
             var headingTemplate = App.Templates.sidebarHeading(transactionFormattedDay + " " + transactionFormattedDate);
             
             // status template
+            var status = getTransactionStatus(transaction);
             var statusTemplate = App.Templates.transactionStatus(status);
             
             // transaction template
@@ -363,6 +358,34 @@ App.MondoAPI = (function()
             }
             App.Map.addMarker(payload);
         });
+    }
+    
+    
+    
+    
+    
+    /**
+     * Get a transaction status
+     */
+    function getTransactionStatus(transaction)
+    {
+        var status = "";
+        
+        // card Top-up
+        if(transaction.is_load) {
+            status = "Top-up";
+        }
+        
+        // declined status
+        if(transaction.decline_reason) {
+            var reason = transaction.decline_reason;
+            reason = reason.toLowerCase();
+            reason = reason.repalce("_", " ");
+            
+            status = "Declined: " + ;
+        }
+        
+        return status;
     }
     
     
