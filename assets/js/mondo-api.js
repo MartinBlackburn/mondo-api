@@ -254,7 +254,18 @@ App.MondoAPI = (function()
         
         // add new transactions
         $.each(data.transactions, function(key, transaction) {
-            var isDeclined = false;
+            // format transaction date
+            var transactionDate = App.Helpers.formatDateFromString(transaction.created);
+            
+            // heading template
+            var headingTemplate = App.Templates.sidebarHeading(transactionDate.dayName + " " + transactionDate.stringLong);
+            
+            // append heading if its changed
+            if(headingTemplate != lastHeading) {
+                transactionsContainer.append(headingTemplate);
+                
+                lastHeading = headingTemplate;
+            }
             
             // transaction amount classes
             var transactionAmountClasses = "transaction__amount";
@@ -262,13 +273,12 @@ App.MondoAPI = (function()
                 transactionAmountClasses += " transaction__amount--positive";
             }
             
+            var isDeclined = false;
+            
             if(transaction.decline_reason) {
                 isDeclined = true;
                 transactionAmountClasses += " transaction__amount--declined";
             }
-            
-            // get merchant logo template
-            var merchantLogo = App.Templates.merchantLogo(transaction);
             
             // get transaction name
             var transactionName = 'Mondo';
@@ -276,11 +286,8 @@ App.MondoAPI = (function()
                 transactionName = transaction.merchant.name;
             }
             
-            // format transaction date
-            var transactionDate = App.Helpers.formatDateFromString(transaction.created);
-            
-            // heading template
-            var headingTemplate = App.Templates.sidebarHeading(transactionDate.dayName + " " + transactionDate.stringLong);
+            // get merchant logo template
+            var merchantLogo = App.Templates.merchantLogo(transaction);
             
             // status template
             var status = getTransactionStatus(transaction);
@@ -297,13 +304,6 @@ App.MondoAPI = (function()
                     "<div class='" + transactionAmountClasses + "'>" + App.Helpers.formatCurrency(transaction.amount, transaction.currency, true) + "</div>",
                 "</div>"
             ].join("\n");
-            
-            // append heading if its changed
-            if(headingTemplate != lastHeading) {
-                transactionsContainer.append(headingTemplate);
-                
-                lastHeading = headingTemplate;
-            }
             
             // append transaction
             transactionsContainer.append(transactionTemplate);
