@@ -98,7 +98,7 @@ App.Helpers = (function()
         dateObject.year = date.getFullYear();
         dateObject.stringShort = dateObject.day + "/" + dateObject.month + "/" + dateObject.year;
         dateObject.stringLong = dateObject.day + " " + dateObject.monthName + " " + dateObject.year;
-        dateObject.stringWithTime = dateObject.day + " " + dateObject.monthName + " " + dateObject.year + " at " dateObject.time;
+        dateObject.stringWithTime = dateObject.day + " " + dateObject.monthName + " " + dateObject.year + " at " + dateObject.time;
         
         return dateObject;
     }
