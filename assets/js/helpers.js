@@ -68,5 +68,7 @@ App.Helpers = (function()
      */
     return {
         debugMessage: debugMessage,
+        getURLParameter: getURLParameter,
+        formatCurrency: formatCurrency
     };
 })();
