@@ -270,7 +270,7 @@ App.MondoAPI = (function()
             }
             
             // get merchant logo
-            var merchantLogo = App.Templates.merchantLogo(transaction.merchant.logo);
+            var merchantLogo = App.Templates.merchantLogo(transaction.merchant.logo || null);
             
             // get transaction name
             var transactionName = 'Mondo';
