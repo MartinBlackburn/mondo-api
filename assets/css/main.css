@@ -180,16 +180,21 @@ p:last-child {
   font-size: 1em; }
 
 .sidebar {
-  width: 25%;
+  width: 100%;
+  height: 30%;
   padding: 20px;
   overflow-y: scroll;
   overflow-x: hidden;
   background: #fff;
   position: fixed;
-  top: 0;
   left: 0;
   bottom: 0;
   z-index: 999; }
+  @media screen and (min-width: 750px) {
+    .sidebar {
+      width: 350px;
+      height: 100%;
+      top: 0; } }
 
 .sidebar__heading {
   margin-bottom: 20px; }
@@ -253,8 +258,13 @@ p:last-child {
   color: green; }
 
 .map {
-  width: 75%;
-  height: 100%;
+  width: 100%;
+  height: 70%;
   position: fixed !important;
   top: 0;
-  left: 25%; }
+  left: 0; }
+  @media screen and (min-width: 750px) {
+    .map {
+      height: 100%;
+      width: calc(100% - 350px);
+      left: 350px; } }
