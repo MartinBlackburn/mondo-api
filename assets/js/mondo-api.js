@@ -329,6 +329,13 @@ App.MondoAPI = (function()
             }
             App.Map.addMarker(payload);
         });
+        
+        //add click for transaction to show info window
+        $(".transaction").click(function() {
+            var index = $(".transaction").index(this)
+            
+            google.maps.event.trigger(markers[index], 'click');
+        });
     }
     
     

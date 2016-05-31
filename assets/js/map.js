@@ -103,6 +103,18 @@ App.Map = (function()
         //empty map bounds
         bounds = new google.maps.LatLngBounds();
     }
+    
+    
+    
+    
+    
+    /**
+     * Show info window for marker
+     */
+    function showInfoWindow(marker)
+    {
+        google.maps.event.trigger(markers[marker], 'click');
+    }
 
 
 
@@ -114,6 +126,7 @@ App.Map = (function()
     return {
         init: init,
         addMarker: addMarker,
-        deleteMarkers: deleteMarkers
+        deleteMarkers: deleteMarkers,
+        showInfoWindow: showInfoWindow
     };
 })();
