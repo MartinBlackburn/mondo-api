@@ -334,7 +334,7 @@ App.MondoAPI = (function()
         $(".transaction").click(function() {
             var index = $(".transaction").index(this)
             
-            google.maps.event.trigger(markers[index], 'click');
+            App.Map.showInfoWindow(index);
         });
     }
     
